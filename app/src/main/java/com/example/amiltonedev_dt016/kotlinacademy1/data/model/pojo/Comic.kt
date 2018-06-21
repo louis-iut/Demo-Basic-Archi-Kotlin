@@ -5,7 +5,7 @@ import java.util.*
 data class Comic(
         val id: String,
         val title: String,
-        val date: Date,
+        val date: String,
         val coverImagePath: String?,
         val creators: List<Creator>,
         val diamondCode: String

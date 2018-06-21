@@ -1,13 +1,20 @@
 package com.example.amiltonedev_dt016.kotlinacademy1.data.model.remote
 
-import com.example.amiltonedev_dt016.kotlinacademy1.data.model.pojo.Creator
+import android.media.Image
+import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class RemoteComic(
-    val id: String,
-    val title: String,
-    val date: Date,
-    val coverImagePath: String?,
-    val creators: List<RemoteCreator>,
-    val diamondCode: String
+        @SerializedName("id")
+        val id: String,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("dates")
+        val dates: List<RemoteDate>,
+        @SerializedName("images")
+        val images: List<RemoteImage>,
+        @SerializedName("creators")
+        val creators: RemoteCreators,
+        @SerializedName("diamondCode")
+        val diamondCode: String
 )

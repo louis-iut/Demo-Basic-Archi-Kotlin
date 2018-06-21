@@ -21,7 +21,7 @@ class ComicsListViewModel(private val comicsRepository: ComicsRepository) : View
         disposables.add(comicsRepository.retrieveComics()
                 .subscribeOn(Schedulers.io())
                 .subscribeBy(
-                        onNext = { comicsLiveData.postValue(mapComicsListToDataWrapper(it)) },
+                        onSuccess = { comicsLiveData.postValue(mapComicsListToDataWrapper(it)) },
                         onError = { print("NO $it") }
                 )
         )

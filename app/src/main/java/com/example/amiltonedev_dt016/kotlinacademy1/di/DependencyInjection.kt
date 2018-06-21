@@ -2,10 +2,7 @@ package com.example.amiltonedev_dt016.kotlinacademy1.di
 
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
-import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.APIManager
-import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.CacheManager
-import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.CacheManagerImpl
-import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.MockAPIManagerImpl
+import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.*
 import com.example.amiltonedev_dt016.kotlinacademy1.data.repository.ComicsRepository
 import com.example.amiltonedev_dt016.kotlinacademy1.ui.activity.BaseActivity
 import com.example.amiltonedev_dt016.kotlinacademy1.ui.activity.MainActivity
@@ -21,7 +18,7 @@ import org.koin.dsl.module.applicationContext
 
 val appModule = applicationContext {
     //Managers
-    bean { MockAPIManagerImpl() as APIManager }
+    bean { MarvelAPIManagerImpl() as APIManager }
     bean { CacheManagerImpl() as CacheManager }
 
     //Repositories

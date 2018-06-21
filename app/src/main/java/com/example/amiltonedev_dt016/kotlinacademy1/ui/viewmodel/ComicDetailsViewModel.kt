@@ -18,7 +18,7 @@ class ComicDetailsViewModel(private val comicsRepository: ComicsRepository): Vie
         disposables.add(comicsRepository.retrieveComicWithId(id)
                 .subscribeOn(Schedulers.io())
                 .subscribeBy(
-                        onNext = { comicLiveData.postValue(ComicViewDataWrapper(it)) },
+                        onSuccess = { comicLiveData.postValue(ComicViewDataWrapper(it)) },
                         onError = { print("NO $it") }
                 )
         )
