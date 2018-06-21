@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_height_size">160dp</dimen>
+    <dimen name="image_width_size">100dp</dimen>
+    <dimen name="margin">5dp</dimen>
+    <dimen name="font_size">20sp</dimen>
+    <dimen name="toolbar_icon_padding">16dp</dimen>
+    <dimen name="toolbar_title_padding_left">36dp</dimen>
+</resources>
