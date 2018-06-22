@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.amiltonedev_dt016.kotlinacademy1.R
 import com.example.amiltonedev_dt016.kotlinacademy1.observeSafe
+import com.example.amiltonedev_dt016.kotlinacademy1.ui.module.ErrorDisplayComponent
 import com.example.amiltonedev_dt016.kotlinacademy1.ui.viewmodel.ComicDetailsViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_comic_details.*
 import org.koin.android.architecture.ext.viewModel
+import org.koin.android.ext.android.inject
 
 class ComicDetailsFragment: Fragment() {
 
@@ -30,6 +32,7 @@ class ComicDetailsFragment: Fragment() {
 
     private lateinit var comicId: String
     private val viewModel: ComicDetailsViewModel by viewModel()
+    private val errorDisplayComponent: ErrorDisplayComponent by inject()
 
 
 

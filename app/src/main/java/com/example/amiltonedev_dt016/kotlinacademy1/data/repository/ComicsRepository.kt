@@ -2,23 +2,47 @@ package com.example.amiltonedev_dt016.kotlinacademy1.data.repository
 
 import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.APIManager
 import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.CacheManager
-import com.example.amiltonedev_dt016.kotlinacademy1.data.model.mapper.RemoteEntityDataMapper
+import com.example.amiltonedev_dt016.kotlinacademy1.data.manager.DBManager
+import com.example.amiltonedev_dt016.kotlinacademy1.data.model.mapper.mapComicsToDBEntities
+import com.example.amiltonedev_dt016.kotlinacademy1.data.model.mapper.mapDBComicsToEntities
+import com.example.amiltonedev_dt016.kotlinacademy1.data.model.mapper.mapRemoteComicsToEntities
 import com.example.amiltonedev_dt016.kotlinacademy1.data.model.pojo.Comic
 import io.reactivex.Single
 
-class ComicsRepository(private val apiManager: APIManager, private val cacheManager: CacheManager) {
+class ComicsRepository(private val apiManager: APIManager, private val dbManager: DBManager, private val cacheManager: CacheManager) {
     //region ComicsList
     fun retrieveComics(): Single<List<Comic>> {
-        return getComicsFromCache().onErrorResumeNext {
-            getComicsFromAPI()
-        }
+        return getComicsFromCache()
+                .onErrorResumeNext {
+                    retrieveComicsFromDB()
+                }
+                .onErrorResumeNext {
+                    retrieveComicsFromAPI()
+                }
     }
 
-    fun getComicsFromAPI(): Single<List<Comic>> {
+    fun retrieveComicsFromAPI(): Single<List<Comic>> {
         return apiManager.getComics()
                 .map {
-                    return@map RemoteEntityDataMapper.mapRemoteComicsToEntities(it)
-                }.doAfterSuccess { setComicsInCache(it) }
+                    return@map mapRemoteComicsToEntities(it)
+                }.doAfterSuccess {
+                    saveComicsIntoDB(it)
+                    saveComicsIntoCache(it)
+                }
+    }
+
+    private fun retrieveComicsFromDB(): Single<List<Comic>> {
+        val comics = dbManager.getComics()
+
+        if (comics.isEmpty()) {
+            return Single.error(Throwable("comics db is empty"))
+        }
+
+        return Single.just(mapDBComicsToEntities(comics)).doAfterSuccess { saveComicsIntoCache(it) }
+    }
+
+    private fun saveComicsIntoDB(comics: List<Comic>) {
+        dbManager.setComics(mapComicsToDBEntities(comics))
     }
 
     private fun getComicsFromCache(): Single<List<Comic>> {
@@ -31,7 +55,7 @@ class ComicsRepository(private val apiManager: APIManager, private val cacheMana
         return Single.just(comics)
     }
 
-    private fun setComicsInCache(comics: List<Comic>) {
+    private fun saveComicsIntoCache(comics: List<Comic>) {
         cacheManager.setComics(comics)
     }
     //endregion

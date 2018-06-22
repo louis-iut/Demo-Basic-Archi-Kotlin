@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -32,6 +34,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support.constraint:constraint-layout:1.1.2"
 
@@ -50,13 +53,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
 
     //DB
-    /*implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
+    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
     implementation "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbflow_version}"
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"*/
 
     //RX
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
     //UI

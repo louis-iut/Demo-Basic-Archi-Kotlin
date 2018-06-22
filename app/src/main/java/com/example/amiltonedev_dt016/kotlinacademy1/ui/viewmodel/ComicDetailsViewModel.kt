@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.amiltonedev_dt016.kotlinacademy1.data.repository.ComicsRepository
 import com.example.amiltonedev_dt016.kotlinacademy1.ui.datawrapper.ComicViewDataWrapper
-import com.example.amiltonedev_dt016.kotlinacademy1.ui.datawrapper.mapComicsListToDataWrapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
