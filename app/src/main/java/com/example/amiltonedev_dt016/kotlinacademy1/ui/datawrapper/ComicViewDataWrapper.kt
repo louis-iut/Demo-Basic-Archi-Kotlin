@@ -10,10 +10,17 @@ class ComicViewDataWrapper(val comic: Comic) {
 
     val id: String = comic.id
     val title: String = comic.title
-    val date: String = comic.date
+    val date: String = formatDate()
     val coverImagePath: String = comic.coverImagePath ?: coverImagePlaceholder
     val creators: String = getCreatorsDescription()
     val diamondCode: String = comic.diamondCode
+
+    private fun formatDate(): String {
+        val date = comic.date
+        val position = date.indexOf("T")
+
+        return date.substring(0, position)
+    }
 
     private fun getCreatorsDescription(): String {
         val creators = mapCreatorsListToDataWrapper(comic.creators)
